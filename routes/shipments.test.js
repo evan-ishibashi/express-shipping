@@ -22,4 +22,15 @@ describe("POST /", function () {
       .send();
     expect(resp.statusCode).toEqual(400);
   });
+
+  test("Throws errors on bad data", async function () {
+    const resp = await request(app).post("/shipments").send({
+      name: "Test Tester",
+      addr: "100 Test St",
+      zip: "12",
+    });
+
+    expect(resp.statusCode).toEqual(400);
+    expect(resp.body.error).toBeDefined();
+  })
 });
