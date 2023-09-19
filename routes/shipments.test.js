@@ -29,8 +29,18 @@ describe("POST /", function () {
       addr: "100 Test St",
       zip: "12",
     });
-
+    console.log(resp.body);
     expect(resp.statusCode).toEqual(400);
-    expect(resp.body.error).toBeDefined();
+    expect(resp.body).toEqual(
+      {
+        "error": {
+        "message": [
+          "instance.zip does not match pattern \"[0-9]{5}(-[0-9]{4})?\"",
+            "instance requires property \"productId\""
+          ],
+          "status": 400
+        }
+      }
+    )
   })
 });
