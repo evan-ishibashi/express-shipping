@@ -1,7 +1,6 @@
 "use strict";
 
-const SHIPIT_SHIP_URL = "http://localhost:3001/ship";
-const SHIPIT_API_KEY = "SUPER-DUPER-SECRET";
+const {SHIPIT_SHIP_URL, SHIPIT_API_KEY} = require("./config");
 
 /** Ship a single product through the shipit API.
  *
@@ -14,9 +13,9 @@ async function shipProduct({ productId, name, addr, zip }) {
   const response = await fetch(SHIPIT_SHIP_URL,{
     method: "POST",
     body: JSON.stringify({
-      itemId: productId, 
-      name, 
-      addr, 
+      itemId: productId,
+      name,
+      addr,
       zip,
       key: SHIPIT_API_KEY,
     }),
@@ -24,7 +23,7 @@ async function shipProduct({ productId, name, addr, zip }) {
       "content-type": "application/json"
     }
   });
-  
+
   const shipData = await response.json();
 
   return shipData.receipt.shipId;
